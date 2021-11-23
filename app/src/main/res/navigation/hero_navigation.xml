@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/hero_navigation"
+    app:startDestination="@id/heroListFragment">
+    <fragment
+        android:id="@+id/heroListFragment"
+        android:name="com.plentina.codingchallengeplentinajcalma.ui.heroListFragment.HeroListFragment"
+        android:label="fragment_hero_list"
+        tools:layout="@layout/fragment_hero_list" >
+        <action
+            android:id="@+id/action_heroListFragment_to_heroDetailFragment"
+            app:destination="@id/heroDetailFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/heroDetailFragment"
+        android:name="com.plentina.codingchallengeplentinajcalma.ui.heroDetail.HeroDetailFragment"
+        android:label="fragment_hero_detail"
+        tools:layout="@layout/fragment_hero_detail" >
+        <argument
+            android:name="hero"
+            app:argType="com.plentina.codingchallengeplentinajcalma.model.DotaHero" />
+        <action
+            android:id="@+id/action_heroDetailFragment_to_heroListFragment"
+            app:destination="@id/heroListFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+
+    </fragment>
+
+</navigation>
