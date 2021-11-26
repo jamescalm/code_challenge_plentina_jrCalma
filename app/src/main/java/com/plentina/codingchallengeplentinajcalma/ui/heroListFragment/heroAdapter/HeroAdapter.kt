@@ -34,11 +34,11 @@ class HeroAdapter(
     }
     override fun onBindViewHolder(holder: HeroAdapter.ViewHolder, position: Int) {
         val track = heroList[position]
-        holder.bindTrack(track)
+        holder.bindHero(track)
     }
 
     inner class ViewHolder(val binding: AdapterHeroBinding): androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        fun bindTrack(hero: DotaHero) {
+        fun bindHero(hero: DotaHero) {
             with(binding) {
                 val displayMetrics = DisplayMetrics()
                 context.getWindowService().defaultDisplay.getRealMetrics(displayMetrics)
@@ -48,6 +48,7 @@ class HeroAdapter(
                 val imgURL = Constants.base_url + hero.img
                 context.getDrawable(R.drawable.dark_img_placeholder)?.let { imgHero.loadItemImage(imgURL, it) }
                 txtHeroName.text = hero.localized_name
+                itemView.setOnClickListener { onHeroClickListener.onHeroClicked(hero) }
             }
         }
     }

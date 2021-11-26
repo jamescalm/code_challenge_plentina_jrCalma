@@ -8,6 +8,9 @@ fun Int.toTwoDecString(): String{
 }
 
 fun Double.toTwoDecStringDouble(): String{
-    val roundedDouble = BigDecimal(this@toTwoDecStringDouble).setScale(2, RoundingMode.HALF_EVEN)
-    return String.format("%.2f", roundedDouble)
+    return String.format("%.2f", this@toTwoDecStringDouble)
+}
+
+fun Double.toWholeNumStringDouble(): String{
+    return String.format("%.0f", this@toWholeNumStringDouble)
 }

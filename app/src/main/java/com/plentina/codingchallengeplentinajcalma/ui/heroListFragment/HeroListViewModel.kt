@@ -26,7 +26,7 @@ class HeroListViewModel @Inject constructor(private val heroesHttp: HeroesHttp) 
 
     val TAG = "HeroesListVM"
 
-    /** This function gets the value list of tracks from the API endpoint*/
+    /** This function gets the value list of heroes from the API endpoint*/
     fun getHeroList(){
         heroesHttp.getHeroes()
             .subscribeOn(Schedulers.io())

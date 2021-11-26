@@ -13,4 +13,10 @@ class ViewModelModule {
     fun providesHeroListViewModelFactory(heroes: HeroesHttp): ViewModelFactory {
         return ViewModelFactory(heroes)
     }
+
+    @Provides
+    @Singleton
+    fun providesHeroDetailViewModelFactory(heroes: HeroesHttp): ViewModelFactory {
+        return ViewModelFactory(heroes)
+    }
 }

@@ -34,5 +34,37 @@ data class DotaHero(
     var legs: Int? = null,
     var hero_id: Int? = null
 ): Parcelable {
+    fun getProjectileSpeed(): String{
+        return when (attack_type) {
+            "Melee" -> "Instant"
+            null -> "N/A"
+            else -> projectile_speed.toString()
+        }
+    }
 
+    fun getBasePrimAttr(): Int{
+        return when (primary_attr) {
+            "str" -> base_str ?: 0
+            "agi" -> base_agi ?: 0
+            "int" -> base_int ?: 0
+            else -> 0
+        }
+    }
+    fun getPrimAttrGain(): Double{
+        return when (primary_attr) {
+            "str" -> str_gain ?: 0.0
+            "agi" -> agi_gain ?: 0.0
+            "int" -> int_gain ?: 0.0
+            else -> 0.0
+        }
+    }
+
+    fun getPrimaryAttr(): String{
+        return when (primary_attr){
+            "str" -> "Strength"
+            "agi" -> "Agility"
+            "int" -> "Intelligence"
+            else -> "N/A"
+        }
+    }
 }
