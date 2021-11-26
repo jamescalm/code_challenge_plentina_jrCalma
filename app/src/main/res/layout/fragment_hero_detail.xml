@@ -477,4 +477,33 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddFavHero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add to Favorite Heroes"
+            app:icon="@drawable/ic_aegis_square"
+            app:iconTint="@null"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:cornerRadius="3dp"
+            android:backgroundTint="@color/dark_green"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteFavHero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove from Favorite Heroes"
+            app:icon="@drawable/ic_aegis_square"
+            app:iconTint="@null"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:cornerRadius="3dp"
+            android:visibility="gone"
+            android:backgroundTint="@color/dark_red"/>
+    </RelativeLayout>
 </LinearLayout>

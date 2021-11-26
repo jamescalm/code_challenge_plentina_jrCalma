@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.core.text.bold
+import androidx.core.text.color
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.mcxiaoke.koi.ext.toast
+import com.plentina.codingchallengeplentinajcalma.DotaHeroesApp
 import com.plentina.codingchallengeplentinajcalma.R
 import com.plentina.codingchallengeplentinajcalma.ViewModelFactory
 import com.plentina.codingchallengeplentinajcalma.api.HeroesHttp
@@ -22,7 +25,6 @@ import com.plentina.codingchallengeplentinajcalma.extensions.toTwoDecStringDoubl
 import com.plentina.codingchallengeplentinajcalma.model.Constants
 import com.plentina.codingchallengeplentinajcalma.model.DotaHero
 import com.plentina.codingchallengeplentinajcalma.ui.heroDetail.roleAdapter.RoleAdapter
-import com.plentina.codingchallengeplentinajcalma.ui.heroListFragment.heroAdapter.HeroAdapter
 import com.plentina.codingchallengeplentinajcalma.util.InputFilterMinMax
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -73,6 +75,22 @@ class HeroDetailFragment : Fragment() {
                 }
                 false
             }
+            btnAddFavHero.setOnClickListener {
+                viewModel.saveFavoriteHeroes(args.hero)
+                val message = SpannableStringBuilder()
+                        .bold { context?.let { it1 -> color(it1.getColor(R.color.dark_green)){append(args.hero.localized_name)} } }
+                        .append(" has been added to Favorite Heroes")
+                toast(message)
+                showAddDeleteBtn(args.hero)
+            }
+            btnDeleteFavHero.setOnClickListener {
+                viewModel.deleteFavoriteHeroes(args.hero)
+                val message = SpannableStringBuilder()
+                        .bold { context?.let { it1 -> color(it1.getColor(R.color.dark_red)){append(args.hero.localized_name)} } }
+                        .append(" has been removed from Favorite Heroes")
+                toast(message)
+                showAddDeleteBtn(args.hero)
+            }
         }
         setupObservers()
         setupHeroDetails(1)
@@ -109,6 +127,19 @@ class HeroDetailFragment : Fragment() {
             txtMagicResist.text = "${hero.base_mr} %"
             txtMS.text = hero.move_speed.toString()
         }
+        showAddDeleteBtn(hero)
+    }
+
+    fun showAddDeleteBtn(hero: DotaHero){
+        val favHeroes =  DotaHeroesApp.sharedPreferences?.getStringSet(Constants.PREF_FAVORITE_HEROES, mutableSetOf())
+        if(favHeroes?.contains(hero.id.toString()) == true) {
+            binding.btnAddFavHero.isGone = true
+            binding.btnDeleteFavHero.isVisible = true
+        }else{
+            binding.btnAddFavHero.isVisible = true
+            binding.btnDeleteFavHero.isGone = true
+        }
+
     }
 
     private fun attrGain(base: Int, gain: Double): SpannableStringBuilder{

@@ -5,7 +5,6 @@ interface Constants {
         //Base URL
         const val base_url = "https://api.opendota.com"
         //Preferences
-        const val PREF_RECENT_TRACKS = "PREF_RECENT_TRACKS"
-        const val PREF_RECENT_TRACKS_COLLECTION = "PREF_RECENT_TRACKS_COLLECTION"
+        const val PREF_FAVORITE_HEROES = "PREF_FAVORITE_HEROES"
     }
 }

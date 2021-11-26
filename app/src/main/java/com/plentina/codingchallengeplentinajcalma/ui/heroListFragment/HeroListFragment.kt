@@ -2,6 +2,7 @@ package com.plentina.codingchallengeplentinajcalma.ui.heroListFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.plentina.codingchallengeplentinajcalma.R
+import com.plentina.codingchallengeplentinajcalma.DotaHeroesApp
 import com.plentina.codingchallengeplentinajcalma.ViewModelFactory
 import com.plentina.codingchallengeplentinajcalma.api.HeroesHttp
 import com.plentina.codingchallengeplentinajcalma.databinding.FragmentHeroListBinding
+import com.plentina.codingchallengeplentinajcalma.model.Constants
 import com.plentina.codingchallengeplentinajcalma.model.DotaHero
 import com.plentina.codingchallengeplentinajcalma.ui.heroListFragment.heroAdapter.HeroAdapter
 import com.plentina.codingchallengeplentinajcalma.util.Status
@@ -34,6 +35,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
 
     lateinit var viewModel: HeroListViewModel
 
+    private var favAdapter: HeroAdapter? = null
     private var strAdapter: HeroAdapter? = null
     private var agiAdapter: HeroAdapter? = null
     private var intAdapter: HeroAdapter? = null
@@ -54,6 +56,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.favRV.layoutManager = GridLayoutManager(context, 4, LinearLayoutManager.VERTICAL, false )
         binding.strRv.layoutManager = GridLayoutManager(context, 4, LinearLayoutManager.VERTICAL, false )
         binding.agiRv.layoutManager = GridLayoutManager(context, 4, LinearLayoutManager.VERTICAL, false )
         binding.intRv.layoutManager = GridLayoutManager(context, 4, LinearLayoutManager.VERTICAL, false )
@@ -62,6 +65,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
     }
     override fun onResume() {
         super.onResume()
+        binding.favRV.adapter = favAdapter
         binding.strRv.adapter = strAdapter
         binding.agiRv.adapter = agiAdapter
         binding.intRv.adapter = intAdapter
@@ -73,6 +77,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
                 initStrAdapter(it)
                 initAgiAdapter(it)
                 initIntAdapter(it)
+                initFavAdapter(it)
             }
         })
         viewModel.heroListLoader.observe(viewLifecycleOwner, {
@@ -84,6 +89,33 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
                 binding.loader.isGone = true
             }
         })
+    }
+    private fun initFavAdapter(heroes: List<DotaHero>){
+        Log.d("favHeroes", "init")
+        val favHeroesPref =  DotaHeroesApp.sharedPreferences?.getStringSet(Constants.PREF_FAVORITE_HEROES, mutableSetOf())
+
+        if (favHeroesPref.isNullOrEmpty()){
+            binding.viewFavorite.isGone = true
+            binding.favRV.isGone = true
+        }else{
+            binding.viewFavorite.isVisible = true
+            binding.favRV.isVisible = true
+
+            val favHeroes= heroes.filter {
+                favHeroesPref.contains(it.id.toString())
+            }.sortedBy {
+                it.localized_name
+            }
+
+            if(favAdapter == null) {
+                favAdapter = context?.let { HeroAdapter(it, favHeroes, this) }
+                binding.favRV.adapter = favAdapter
+            } else {
+                favAdapter?.heroList = favHeroes
+                favAdapter?.notifyDataSetChanged()
+            }
+        }
+        
     }
 
     private fun initStrAdapter(heroes: List<DotaHero>){

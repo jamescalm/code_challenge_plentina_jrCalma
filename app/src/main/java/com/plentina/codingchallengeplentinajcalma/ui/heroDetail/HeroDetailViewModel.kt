@@ -1,21 +1,19 @@
 package com.plentina.codingchallengeplentinajcalma.ui.heroDetail
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.util.Rational
+import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.plentina.codingchallengeplentinajcalma.DotaHeroesApp
 import com.plentina.codingchallengeplentinajcalma.R
+import com.plentina.codingchallengeplentinajcalma.model.Constants
 import com.plentina.codingchallengeplentinajcalma.model.DotaHero
-import io.reactivex.disposables.CompositeDisposable
 import java.lang.Exception
 import javax.inject.Inject
 
 class HeroDetailViewModel @Inject constructor() : ViewModel() {
-    private val disposables: CompositeDisposable by lazy {
-        CompositeDisposable()
-    }
+
     private var _heroLevel = MutableLiveData<Int>()
     var heroLevel : LiveData<Int> = _heroLevel
 
@@ -91,6 +89,26 @@ class HeroDetailViewModel @Inject constructor() : ViewModel() {
             "agi" -> R.drawable.agi_attribute_symbol
             "int" -> R.drawable.int_attribute_symbol
             else -> R.drawable.melee_icon
+        }
+    }
+
+    fun saveFavoriteHeroes(hero: DotaHero){
+        val favHeroes =  DotaHeroesApp.sharedPreferences?.getStringSet(Constants.PREF_FAVORITE_HEROES, mutableSetOf())
+        if(favHeroes?.contains(hero.id.toString()) == false) favHeroes.add(hero.id.toString())
+        DotaHeroesApp.sharedPreferences?.edit {
+            remove(Constants.PREF_FAVORITE_HEROES)
+            apply()
+            putStringSet(Constants.PREF_FAVORITE_HEROES, favHeroes)
+        }
+    }
+
+    fun deleteFavoriteHeroes(hero: DotaHero){
+        val favHeroes =  DotaHeroesApp.sharedPreferences?.getStringSet(Constants.PREF_FAVORITE_HEROES, mutableSetOf())
+        if(favHeroes?.contains(hero.id.toString()) == true) favHeroes.remove(hero.id.toString())
+        DotaHeroesApp.sharedPreferences?.edit {
+            remove(Constants.PREF_FAVORITE_HEROES)
+            apply()
+            putStringSet(Constants.PREF_FAVORITE_HEROES, favHeroes)
         }
     }
 }
