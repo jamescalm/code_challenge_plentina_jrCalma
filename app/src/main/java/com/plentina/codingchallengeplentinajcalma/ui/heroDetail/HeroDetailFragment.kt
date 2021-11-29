@@ -2,11 +2,16 @@ package com.plentina.codingchallengeplentinajcalma.ui.heroDetail
 
 import android.content.Context
 import android.os.Bundle
-import android.text.*
+import android.text.InputFilter
+import android.text.SpannableStringBuilder
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.text.bold
 import androidx.core.text.color
 import androidx.core.view.isGone
@@ -91,10 +96,12 @@ class HeroDetailFragment : Fragment() {
                 toast(message)
                 showAddDeleteBtn(args.hero)
             }
+            imgBack.setOnClickListener { activity?.onBackPressed() }
         }
         setupObservers()
         setupHeroDetails(1)
         args.hero.roles?.let { initRoleAdapter(it) }
+        setLongPressMessage()
     }
 
     private fun setupObservers(){
@@ -156,6 +163,75 @@ class HeroDetailFragment : Fragment() {
         } else {
             roleAdapter?.roles = roles
             roleAdapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun setLongPressMessage(){
+        with(binding){
+            viewPrimaryAttr.setOnLongClickListener {
+                toast("Hero Primary Attribute")
+                true
+            }
+            txtHP.setOnLongClickListener {
+                toast("Hero Base Full Health\n(adjusted by level)")
+                true
+            }
+            txtHPRegen.setOnLongClickListener {
+                toast("Hero Base Health Regeneration\n(adjusted by level)")
+                true
+            }
+            txtMP.setOnLongClickListener {
+                toast("Hero Base Full Mana\n(adjusted by level)")
+                true
+            }
+            txtMPRegen.setOnLongClickListener {
+                toast("Hero Base Mana Regeneration\n(adjusted by level)")
+                true
+            }
+            viewStr.setOnLongClickListener {
+                toast("Hero Base Strength + Strength Gain")
+                true
+            }
+            viewAgi.setOnLongClickListener {
+                toast("Hero Base Agility + Agility Gain")
+                true
+            }
+            viewInt.setOnLongClickListener {
+                toast("Hero Base Intelligence + Intelligence Gain")
+                true
+            }
+            viewAtkType.setOnLongClickListener {
+                toast("Hero Attack Type\n(Ranged: Bow, Melee: Sword)")
+                false
+            }
+            viewDamage.setOnLongClickListener {
+                toast("Hero Base Damage (adjusted by level)")
+                true
+            }
+            viewBAT.setOnLongClickListener {
+                toast("Hero Base Attack Time")
+                true
+            }
+            viewAtkRange.setOnLongClickListener {
+                toast("Hero Attack Range")
+                true
+            }
+            viewProjectileSpeed.setOnLongClickListener {
+                toast("Hero Projectile Speed\n(instant when melee)")
+                true
+            }
+            viewArmor.setOnLongClickListener {
+                toast("Hero Base Armor (adjusted by level)")
+                true
+            }
+            viewMR.setOnLongClickListener {
+                toast("Hero Base Magic Resistance")
+                true
+            }
+            viewMS.setOnLongClickListener {
+                toast("Hero Base Movement Speed")
+                true
+            }
         }
     }
 }

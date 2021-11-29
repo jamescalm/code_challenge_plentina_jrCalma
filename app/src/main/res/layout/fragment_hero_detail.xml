@@ -67,6 +67,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/viewPrimaryAttr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
@@ -181,6 +182,7 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
                 <LinearLayout
+                    android:id="@+id/viewStr"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -203,6 +205,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/viewAgi"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -226,6 +229,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/viewInt"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -257,6 +261,7 @@
                 android:padding="5dp">
 
                 <LinearLayout
+                    android:id="@+id/viewAtkType"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -318,6 +323,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/viewDamage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
@@ -336,6 +342,7 @@
                             android:textSize="@dimen/regular_text_size" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/viewBAT"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
@@ -353,6 +360,7 @@
                             android:layout_gravity="center_vertical"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/viewAtkRange"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
@@ -370,6 +378,7 @@
                             android:layout_gravity="center_vertical"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/viewProjectileSpeed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
@@ -395,6 +404,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/viewArmor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
@@ -413,6 +423,7 @@
                             android:textSize="@dimen/regular_text_size" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/viewMR"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
@@ -438,6 +449,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/viewMS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
