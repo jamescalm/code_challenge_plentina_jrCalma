@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coding Challenge Plentina J Calma</string>
+    <string name="app_name">Dota 2 Favorites</string>
     <string name="internet_unavailable">Internet connection is not available</string>
     <string name="title_activity_main">MainActivity</string>
     <!--
