@@ -35,7 +35,7 @@ class RoleAdapter (
             }
         }
     }
-
+    /** This function sets up the Role Icon for a given role*/
     fun getRoleIcon(role: String): Int{
         return when(role){
             "Carry"-> R.drawable.ic_carry

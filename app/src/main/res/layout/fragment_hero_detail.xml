@@ -485,6 +485,14 @@
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can long press on icons for description"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"/>
             
         </LinearLayout>
 

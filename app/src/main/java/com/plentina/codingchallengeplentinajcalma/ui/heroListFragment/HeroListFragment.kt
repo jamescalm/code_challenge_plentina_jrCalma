@@ -63,6 +63,8 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
         viewModel.getHeroList()
         setupObservers()
     }
+
+    /** Refreshes the Recycler Views when this fragment resumes(fragment lifecycle)*/
     override fun onResume() {
         super.onResume()
         binding.favRV.adapter = favAdapter
@@ -71,6 +73,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
         binding.intRv.adapter = intAdapter
     }
 
+    /** This function sets up the observer for the live data in HeroListViewModel*/
     private fun setupObservers(){
         viewModel.heroList.observe(viewLifecycleOwner, {
             if (it != null) {
@@ -80,6 +83,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
                 initFavAdapter(it)
             }
         })
+        /** This observer manipulates progress bar loader depending on the loading states*/
         viewModel.heroListLoader.observe(viewLifecycleOwner, {
             if (it.status == Status.LOADING) {
                 binding.mainLayout.isGone = true
@@ -90,6 +94,8 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
             }
         })
     }
+
+    /** This function initializes the Favorite Heroes Recycler View*/
     private fun initFavAdapter(heroes: List<DotaHero>){
         Log.d("favHeroes", "init")
         val favHeroesPref =  DotaHeroesApp.sharedPreferences?.getStringSet(Constants.PREF_FAVORITE_HEROES, mutableSetOf())
@@ -118,6 +124,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
         
     }
 
+    /** This function initializes the Strength Heroes Recycler View*/
     private fun initStrAdapter(heroes: List<DotaHero>){
         val strHeroes = heroes.filter {
             it.primary_attr == "str"
@@ -133,6 +140,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
         }
     }
 
+    /** This function initializes the Agility Heroes Recycler View*/
     private fun initAgiAdapter(heroes: List<DotaHero>){
         val agiHeroes = heroes.filter {
             it.primary_attr == "agi"
@@ -148,6 +156,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
         }
     }
 
+    /** This function initializes the Intelligence Heroes Recycler View*/
     private fun initIntAdapter(heroes: List<DotaHero>){
         val intHeroes = heroes.filter {
             it.primary_attr == "int"
@@ -163,6 +172,7 @@ class HeroListFragment : Fragment(), HeroAdapter.OnHeroClickListener {
         }
     }
 
+    /** This function sets up the click listener when a Hero Tile is clicked*/
     override fun onHeroClicked(hero: DotaHero) {
         findNavController().navigate(
                 HeroListFragmentDirections.actionHeroListFragmentToHeroDetailFragment(hero)

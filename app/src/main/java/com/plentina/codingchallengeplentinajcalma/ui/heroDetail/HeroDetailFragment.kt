@@ -104,11 +104,14 @@ class HeroDetailFragment : Fragment() {
         setLongPressMessage()
     }
 
+    /** This function sets up the observer for the live data in HeroDetailViewModel*/
     private fun setupObservers(){
         viewModel.heroLevel.observe(viewLifecycleOwner, {
             setupHeroDetails(it)
         })
     }
+
+    /** This function sets up the components containing hero stats*/
     private fun setupHeroDetails(lvl: Int){
         val hero = args.hero
         with(binding){
@@ -137,7 +140,8 @@ class HeroDetailFragment : Fragment() {
         showAddDeleteBtn(hero)
     }
 
-    fun showAddDeleteBtn(hero: DotaHero){
+    /** This function changes the add or delete button depending on whether the hero is on the list of Favorite heroes or not*/
+    private fun showAddDeleteBtn(hero: DotaHero){
         val favHeroes =  DotaHeroesApp.sharedPreferences?.getStringSet(Constants.PREF_FAVORITE_HEROES, mutableSetOf())
         if(favHeroes?.contains(hero.id.toString()) == true) {
             binding.btnAddFavHero.isGone = true
@@ -149,6 +153,8 @@ class HeroDetailFragment : Fragment() {
 
     }
 
+    /** This function return a spannable string builder
+     *  I want the base base attribute is in bold that's why I used Spannable string*/
     private fun attrGain(base: Int, gain: Double): SpannableStringBuilder{
         return SpannableStringBuilder()
                 .bold { append(base.toString()) }
@@ -156,6 +162,8 @@ class HeroDetailFragment : Fragment() {
 
     }
 
+    /** This function sets up the Roles of the Hero
+     *  It sets it up using a Recycler View*/
     private fun initRoleAdapter(roles: List<String>){
         if(roleAdapter == null) {
             roleAdapter = context?.let { RoleAdapter(it, roles) }
@@ -166,6 +174,8 @@ class HeroDetailFragment : Fragment() {
         }
     }
 
+    /** This function setups the long press message on each hero stats
+     *  I put this in place for reference since each stat is only described by an icon*/
     private fun setLongPressMessage(){
         with(binding){
             viewPrimaryAttr.setOnLongClickListener {

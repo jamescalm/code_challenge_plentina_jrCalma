@@ -26,7 +26,9 @@ class HeroListViewModel @Inject constructor(private val heroesHttp: HeroesHttp) 
 
     val TAG = "HeroesListVM"
 
-    /** This function gets the value list of heroes from the API endpoint*/
+    /** This function gets the value list of heroes from the API endpoint
+     *  It also puts the value of the list on a live data when subscribing is successful
+     *  Also updated the loading states when subscribing to show a loader on the hero List fragment when getting data from API*/
     fun getHeroList(){
         heroesHttp.getHeroes()
             .subscribeOn(Schedulers.io())
@@ -38,11 +40,11 @@ class HeroListViewModel @Inject constructor(private val heroesHttp: HeroesHttp) 
             .subscribe ({
                 Log.d(TAG, "${it.size}")
                 _heroList.value = it
-                _heroListLoader.value = LoadingState.success("Successfully loaded Track List")
+                _heroListLoader.value = LoadingState.success("Successfully loaded Hero List")
             }, {
                 Log.d(TAG, "Error: ${it.localizedMessage}")
                 it.printStackTrace()
-                _heroListLoader.value = LoadingState.error("Failed to load Track List")
+                _heroListLoader.value = LoadingState.error("Failed to load Hero List")
             })
             .addTo(disposables)
 
